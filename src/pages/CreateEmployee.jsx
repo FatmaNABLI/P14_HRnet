@@ -3,15 +3,12 @@ import { Link } from 'react-router-dom'
 import './CreateEmployee.css'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-// import Select from "react-dropdown-select";
-import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import Select from 'react-select';
 import { departements, states } from '../data/states';
 import Modal from '../components/Modal/Modal';
 import { useAtom } from 'jotai';
-import { employeesAtom, titreAtom } from '../store';
+import { employeesAtom } from '../store';
 
 
 
@@ -33,14 +30,16 @@ function CreateEmployee(){
     const [isOpen,setIsOpen]=useState(false);
     /*Liste des employés ajoutés */
     const [employees,setEmployees] = useAtom(employeesAtom);
-    console.log(employees);
-
+  
+    //Ajout de l'employé, affichage de la modal après effacement des zones de saisie
     const saveEmployee =()=>{
+
         console.log(birthDate.getDate()+"/"+birthDate.getMonth()+"/"+birthDate.getFullYear() )
         addUSer();
         setIsOpen(true);
     }
 
+    //Employé ajouté au state global via jotai
     const addUSer=()=>{
         let employee = {lastName : lastName, firstName :firstName, state: selectedState}
         //let emps = employees.map(emp => emp);
@@ -58,9 +57,14 @@ function CreateEmployee(){
             </div>
       
             {/* {isOpen&&<Modal setIsOpen={setIsOpen}/>} */}
-            <Modal isOpen = {isOpen} setIsOpen={setIsOpen} animation = {true} animationFrom ="TOP"/>
-          
-
+            <Modal isOpen = {isOpen} setIsOpen={setIsOpen}
+            type="SUCCESS"
+            icone={true}
+            titre="Sauvegarde Employee"
+            texte="Employé ajouté avec succès!"
+            animation = {true} animationFrom={"TOP"}
+            />
+            
             <div className="container">
             <Link to="/employeeList">View Current Employees</Link>
             <h2>Create Employee</h2>
