@@ -21,26 +21,34 @@ function CreateEmployee(){
     const [city,setCity] = useState('');
     const [selectedState, setSelectedState] = useState(null);
     const [selectedDept, setSelectedDept] = useState(null);
-    const [code,setCode] = useState(0);
-
-
-   
+    const [code,setCode] = useState(0);   
 
     /* Modal*/
     const [isOpen,setIsOpen]=useState(false);
+    let type ="SUCCESS";
+    let textModal = "Employé ajouté à la liste  avec succès!"
     /*Liste des employés ajoutés */
     const [employees,setEmployees] = useAtom(employeesAtom);
   
-    //Ajout de l'employé, affichage de la modal après effacement des zones de saisie
+    //Ajouter l'employé, afficher  la modal et vider tous les champs
     const saveEmployee =()=>{
 
         console.log(birthDate.getDate()+"/"+birthDate.getMonth()+"/"+birthDate.getFullYear() )
-        addUSer();
+        if (firstName=="" || lastName=="" || startDate =="" || birthDate == "" || street == "" ||city=="" || selectedState == null || selectedDept == null || code == 0){
+           console.log(firstName + "," + lastName + "," + startDate + "," + birthDate + "," + street + "," + selectedState + "," + selectedDept + "," +code);
+           //console.log(selectedState);
+           type = "ERROR";
+           textModal = "Veuillez remplir tous les champs pour pouvoir ajouter l'employé!"
+        }else{
+            addUSer();
+        }
         setIsOpen(true);
+        
     }
 
     //Employé ajouté au state global via jotai
     const addUSer=()=>{
+        
         let employee = {lastName : lastName, firstName :firstName, state: selectedState}
         //let emps = employees.map(emp => emp);
         let newEmployees = []
@@ -55,14 +63,12 @@ function CreateEmployee(){
             <div className="title">
                 <h1>HRnet</h1>
             </div>
-      
-            {/* {isOpen&&<Modal setIsOpen={setIsOpen}/>} */}
             <Modal isOpen = {isOpen} setIsOpen={setIsOpen}
-            type="SUCCESS"
+            type = {type}
             icone={true}
-            titre="Sauvegarde Employee"
-            texte="Employé ajouté avec succès!"
-            animation = {true} animationFrom={"TOP"}
+            titre="Add Employee"
+            texte= {textModal}
+            animation = {true} animationFrom={"LEFT"}
             />
             
             <div className="container">
