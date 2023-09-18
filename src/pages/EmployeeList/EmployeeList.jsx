@@ -10,19 +10,31 @@ function EmployeeList(){
 const [employees] = useAtom(employeesAtom);
 //const empList = atom((get) => get(employeesAtom))
 console.log("Page Liste Employees : ")
+console.log(employees);
 const data = [];
 
 for (const emp of employees) {
     let dataEmp= [];
     dataEmp[0] = emp.firstName;
     dataEmp[1] = emp.lastName;
-    dataEmp[2] = emp.state.value;
+    dataEmp[2] = emp.startDate;
+    dataEmp[3] = emp.dept;
+    dataEmp[4] = emp.birthDate;
+    dataEmp[5] = emp.street;
+    dataEmp[6] = emp.city;
+    dataEmp[7] = emp.state;
+    dataEmp[8] = emp.code;
+
+
+
+
+    dataEmp[2] = emp.state;
     data.push(dataEmp);
 }
 console.log(data);
 useEffect(() => {
    const grid = new Grid({
-        columns: ['First Name', 'Last Name', 'State'],
+        columns: ['First Name', 'Last Name','Start Date','Departement','Date of Birth','Street','City', 'State', 'Zip Code'],
         search: true,
         sort: true,
         pagination: {

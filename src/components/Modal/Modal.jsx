@@ -1,9 +1,11 @@
 import './Modal.css';
 
 function Modal(props){
-    let {isOpen, setIsOpen,titre,texte} = props;
+    let {isOpen, setIsOpen} = props;
   
     const modal =  document.querySelector('.modal');
+    let titre = props.hasOwnProperty("titre")?props.titre:"Mon titre";
+    let texte = props.hasOwnProperty("titre")?props.texte:"Utiliser la prop texte pour personaliser votre texte";
     let style = {};
 
     let classModalStart="modal--startTop";

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import './CreateEmployee.css'
 import DatePicker from "react-datepicker";
@@ -24,32 +24,46 @@ function CreateEmployee(){
     const [code,setCode] = useState(0);   
 
     /* Modal*/
-    const [isOpen,setIsOpen]=useState(false);
-    let type ="SUCCESS";
-    let textModal = "Employé ajouté à la liste  avec succès!"
+    const [isOpenSuccess,setIsOpenSuccess]=useState(false);
+    const [isOpenError,setIsOpenError]=useState(false);
+
+    // let type ="SUCCESS";
+    // let textModal = "Employé ajouté à la liste  avec succès!"
     /*Liste des employés ajoutés */
     const [employees,setEmployees] = useAtom(employeesAtom);
   
     //Ajouter l'employé, afficher  la modal et vider tous les champs
     const saveEmployee =()=>{
-
+        let emp = {};
         console.log(birthDate.getDate()+"/"+birthDate.getMonth()+"/"+birthDate.getFullYear() )
         if (firstName=="" || lastName=="" || startDate =="" || birthDate == "" || street == "" ||city=="" || selectedState == null || selectedDept == null || code == 0){
            console.log(firstName + "," + lastName + "," + startDate + "," + birthDate + "," + street + "," + selectedState + "," + selectedDept + "," +code);
            //console.log(selectedState);
-           type = "ERROR";
-           textModal = "Veuillez remplir tous les champs pour pouvoir ajouter l'employé!"
+           //type = "ERROR";
+           //textModal = "Veuillez remplir tous les champs pour pouvoir ajouter l'employé!"
+           setIsOpenError(true);
         }else{
-            addUSer();
+            emp.firstName = firstName;
+            emp.lastName = lastName;
+            emp.startDate = startDate.getDate()+"/"+startDate.getMonth()+"/"+startDate.getFullYear();
+            emp.birthDate = birthDate.getDate()+"/"+birthDate.getMonth()+"/"+birthDate.getFullYear();
+            emp.street = street;
+            emp.city = city;
+            emp.state = selectedState.value;
+            emp.dept = selectedDept.value;
+            emp.code = code;
+            addUSer(emp);         
+            setIsOpenSuccess(true);
+            clear(); 
         }
-        setIsOpen(true);
+       
         
     }
 
     //Employé ajouté au state global via jotai
-    const addUSer=()=>{
+    const addUSer=(employee)=>{
         
-        let employee = {lastName : lastName, firstName :firstName, state: selectedState}
+        //let employee = {lastName : lastName, firstName :firstName, state: selectedState}
         //let emps = employees.map(emp => emp);
         let newEmployees = []
         for (const emp of employees) {
@@ -58,17 +72,34 @@ function CreateEmployee(){
         newEmployees.push(employee)
         setEmployees(newEmployees);
     }
+
+    const clear = ()=>{
+        document.getElementById("first-name").value = "";
+        document.getElementById("last-name").value = "";
+        document.getElementById("street").value = "";
+        document.getElementById("city").value = "";
+        document.getElementById("zip-code").value = "";
+
+
+    }
     return (
         <div>
             <div className="title">
                 <h1>HRnet</h1>
             </div>
-            <Modal isOpen = {isOpen} setIsOpen={setIsOpen}
-            type = {type}
+            <Modal isOpen = {isOpenSuccess} setIsOpen={setIsOpenSuccess}
+            type = "SUCCESS"
             icone={true}
             titre="Add Employee"
-            texte= {textModal}
-            animation = {true} animationFrom={"LEFT"}
+            texte= "Employé ajouté à la liste  avec succès!"
+            animation = {true} animationFrom={"TOP"}
+            />
+            <Modal isOpen = {isOpenError} setIsOpen={setIsOpenError}
+            type = "ERROR"
+            icone={true}
+            titre="Add Employee"
+            texte= "Veuillez remplir tous les champs pour pouvoir ajouter l'employé!"
+            animation = {true} animationFrom={"TOP"}
             />
             
             <div className="container">
