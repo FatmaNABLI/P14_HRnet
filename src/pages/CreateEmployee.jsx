@@ -6,7 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import 'react-dropdown/style.css';
 import Select from 'react-select';
 import { departements, states } from '../data/states';
-import Modal from '../components/Modal/Modal';
+// import Modal from '../components/Modal/Modal';
+import  Modal  from  "react-personalized-modal-by-fatma"
 import { useAtom } from 'jotai';
 import { employeesAtom } from '../store';
 
