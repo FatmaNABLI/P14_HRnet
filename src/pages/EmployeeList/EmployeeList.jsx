@@ -6,6 +6,7 @@ import './EmployeeList.css'
 import Select from 'react-select';
 import { useState } from 'react';
 import { paginationLimit } from '../../data/states';
+import { Link } from 'react-router-dom';
 
 
 function EmployeeList(){
@@ -78,6 +79,7 @@ for (const emp of employees) {
                 data = {data}
                 />
             </div>
+            <Link to="/">Home</Link>
         </>
     )
 }
