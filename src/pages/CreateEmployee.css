@@ -22,3 +22,85 @@ label {
     margin-top: 10px;
 }
 
+#logo{
+    width: 100px;
+}
+.container{
+    padding: 30px;
+    background-color: #93AD18;
+}
+.container h2{
+    color: #fff;
+    font-size: 30px;
+}
+.container a{
+    color: #fff;
+}
+.container a:hover{
+    font-size: 20px;
+
+}
+form{
+    background-color: #fff;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    border-radius: 10px;
+    width: 400px;
+    padding: 20px;
+}
+form label{
+    font-weight: bold;
+}
+form input{
+    width: 100%;;
+}
+.react-datepicker-wrapper{
+    width: 100%;
+}
+fieldset.address{
+    width: 95%;
+}
+
+/* CSS */
+form button {
+    margin:20px;
+    float: right;
+  background: #93AD18;
+  border: 1px solid #93AD18;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+}
+
+form button:hover,
+form button:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #93AD18;
+}
+
+form button:active {
+  opacity: .5;
+}
+/* .modal__header.success, .modal__footer button {
+    background-color: #93AD18;
+}
+.success-icone{
+    fill: #93AD18;
+} */

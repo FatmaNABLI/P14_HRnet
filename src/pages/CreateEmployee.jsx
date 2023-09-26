@@ -10,6 +10,7 @@ import { departements, states } from '../data/states';
 import  Modal  from  "react-personalized-modal-by-fatma"
 import { useAtom } from 'jotai';
 import { employeesAtom } from '../store';
+import logo from '../assets/wealthHealthLogo.jpg';
 
 
 
@@ -81,11 +82,11 @@ function CreateEmployee(){
         document.getElementById("city").value = "";
         document.getElementById("zip-code").value = "";
 
-
     }
     return (
         <div>
             <div className="title">
+                <img id="logo" src={logo} alt="Logo Wealth Health" />
                 <h1>HRnet</h1>
             </div>
             <Modal isOpen = {isOpenSuccess} setIsOpen={setIsOpenSuccess}
@@ -145,9 +146,10 @@ function CreateEmployee(){
                         onChange={setSelectedDept}
                         options={departements}
                 />
+                <button onClick={saveEmployee}>Save</button>
             </form>
 
-            <button onClick={saveEmployee}>Save</button>
+            
         </div>
     </div>
        

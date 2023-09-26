@@ -1,9 +1,8 @@
 import {useAtom } from 'jotai';
 import { employeesAtom } from '../../store';
-import { Grid } from "gridjs";
+import { Grid } from 'gridjs-react';
 import "gridjs/dist/theme/mermaid.css";
 import './EmployeeList.css'
-import { useEffect } from 'react';
 import Select from 'react-select';
 import { useState } from 'react';
 import { paginationLimit } from '../../data/states';
@@ -12,13 +11,10 @@ import { paginationLimit } from '../../data/states';
 function EmployeeList(){
     
 const [employees] = useAtom(employeesAtom);
-//const empList = atom((get) => get(employeesAtom))
-console.log("Page Liste Employees : ")
-console.log(employees);
-const [selectedLimit, setSelectedLimit] = useState({value:1});
 
+const [selectedLimit, setSelectedLimit] = useState({value:10});
+//Création des données du Grid
 const data = [];
-
 for (const emp of employees) {
     let dataEmp= [];
     dataEmp[0] = emp.firstName;
@@ -33,37 +29,54 @@ for (const emp of employees) {
 
     data.push(dataEmp);
 }
-console.log(data);
 
-useEffect(() => {
+/*useEffect(() => {
     let limit = selectedLimit.value;
     console.log(limit)
-    let  grid = new Grid({
+    let grid={};
+    grid = new Grid({
         columns: ['First Name', 'Last Name','Start Date','Departement','Date of Birth','Street','City', 'State', 'Zip Code'],
         search: true,
         sort: true,
         pagination: {
-            limit: limit
+            limit: limit,
+            resetPageOnUpdate : true
           },
         data : data
       });
      
       document.getElementById("listEmp").innerHTML="";
+      console.log(grid);
       grid.render(document.getElementById('listEmp'));
     //console.log(selectedLimit.value)
-  },[selectedLimit]);
-
+  },[selectedLimit]);*/
   
 
     return(
         <>
-            <h1>Liste des employés</h1>
+            <h1>Current Employees</h1>
+            <div id="pagination-search">
+            <div id="select-pagination">
+                <label>show</label>
                 <Select
-                        defaultValue={selectedLimit}
-                        onChange={setSelectedLimit}
-                        options={paginationLimit}
+                            defaultValue={selectedLimit.value}
+                            onChange={setSelectedLimit}
+                            options={paginationLimit}
                 />
-                <div id="listEmp">
+            </div>
+            </div>
+               
+            <div id="listEmp">
+                <Grid 
+                columns= { ['First Name', 'Last Name','Start Date','Departement','Date of Birth','Street','City', 'State', 'Zip Code']}
+                search = {true}
+                sort = {true}
+                pagination = {{
+                    limit: selectedLimit.value,
+                    resetPageOnUpdate : true
+                    }}
+                data = {data}
+                />
             </div>
         </>
     )
